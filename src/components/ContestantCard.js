@@ -1,8 +1,11 @@
 import React from 'react'
 
+import { connect } from 'react-redux'
+import { increaseVote, decreaseVote } from '../actions'
+
 function ContestantCard(props) {
   const { contestant } = props
-
+  console.log(props)
   const swapImage = () => {
     if (contestant.votes > 4) {
       return "https://data.whicdn.com/images/173918733/large.jpg"
@@ -20,11 +23,13 @@ function ContestantCard(props) {
       <img alt={contestant.name} src={swapImage()} />
       <br />
       <button onClick={() => {
-        props.increaseVote(contestant.id)
+          props.increaseVote(contestant.id)
       }}>
         Vote
       </button>
-      <button onClick={() => props.decreaseVote(contestant.id) }>
+      <button onClick={() =>{
+        props.decreaseVote(contestant.id)
+      }}>
         Unvote
       </button>
 
@@ -32,4 +37,11 @@ function ContestantCard(props) {
   )
 }
 
-export default ContestantCard
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     increaseVote: (id) => dispatch(increaseVote(id))
+//   }
+// }
+
+
+export default connect(null, { increaseVote, decreaseVote })(ContestantCard)
